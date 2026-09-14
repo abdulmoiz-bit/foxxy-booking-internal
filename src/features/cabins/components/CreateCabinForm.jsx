@@ -19,33 +19,49 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
   const isEditSession = Boolean(editId);
 
   const { register, handleSubmit, reset, getValues, formState } = useForm({
-    defaultValues: isEditSession ? editValues : {},
+    mode: "onChange",
+    defaultValues: isEditSession
+      ? {
+          ...editValues,
+          discount: editValues.discount ?? 0,
+          maxCapacity: editValues.maxCapacity ?? "",
+          regularPrice: editValues.regularPrice ?? "",
+        }
+      : { discount: 0 },
   });
   const { errors } = formState;
 
   function onSubmit(data) {
-    const image = typeof data.image === "string" ? data.image : data.image[0];
+    const image =
+      typeof data.image === "string"
+        ? data.image
+        : data.image?.[0] ?? (isEditSession ? editValues.image : null);
+
+    const cabinData = {
+      ...data,
+      maxCapacity: Number(data.maxCapacity),
+      regularPrice: Number(data.regularPrice),
+      discount: Number(data.discount || 0),
+      image,
+    };
 
     if (isEditSession)
       editCabin(
-        { newCabinData: { ...data, image }, id: editId },
+        { newCabinData: cabinData, id: editId },
         {
-          onSuccess: (data) => {
+          onSuccess: () => {
             reset();
             onCloseModal?.();
           },
         }
       );
     else
-      createCabin(
-        { ...data, image: image },
-        {
-          onSuccess: (data) => {
-            reset();
-            onCloseModal?.();
-          },
-        }
-      );
+      createCabin(cabinData, {
+        onSuccess: () => {
+          reset();
+          onCloseModal?.();
+        },
+      });
   }
 
   function onError(errors) {

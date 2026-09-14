@@ -1,3 +1,7 @@
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+
+import Button from "../../shared/ui/Button";
 import Form from "../../shared/ui/Form";
 import FormRow from "../../shared/ui/FormRow";
 import Input from "../../shared/ui/Input";
@@ -16,25 +20,46 @@ function UpdateSettingsForm() {
     } = {},
   } = useSettings();
   const { isUpdating, updateSetting } = useUpdateSetting();
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: {
+      minBookingLength: minBookingLength ?? 1,
+      maxBookingLength: maxBookingLength ?? 1,
+      maxGuestsPerBooking: maxGuestsPerBooking ?? 1,
+      breakfastPrice: breakfastPrice ?? 0,
+    },
+  });
+
+  useEffect(() => {
+    reset({
+      minBookingLength: minBookingLength ?? 1,
+      maxBookingLength: maxBookingLength ?? 1,
+      maxGuestsPerBooking: maxGuestsPerBooking ?? 1,
+      breakfastPrice: breakfastPrice ?? 0,
+    });
+  }, [breakfastPrice, maxBookingLength, maxGuestsPerBooking, minBookingLength, reset]);
 
   if (isLoading) return <Spinner />;
 
-  function handleUpdate(e, field) {
-    const { value } = e.target;
-
-    if (!value) return;
-    updateSetting({ [field]: value });
+  function onSubmit(data) {
+    updateSetting({
+      minBookingLength: Number(data.minBookingLength),
+      maxBookingLength: Number(data.maxBookingLength),
+      maxGuestsPerBooking: Number(data.maxGuestsPerBooking),
+      breakfastPrice: Number(data.breakfastPrice),
+    });
   }
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRow label="Minimum nights/booking">
         <Input
           type="number"
           id="min-nights"
-          defaultValue={minBookingLength}
           disabled={isUpdating}
-          onBlur={(e) => handleUpdate(e, "minBookingLength")}
+          {...register("minBookingLength", {
+            required: "This field is required",
+            min: { value: 1, message: "Value should be at least 1" },
+          })}
         />
       </FormRow>
 
@@ -42,9 +67,11 @@ function UpdateSettingsForm() {
         <Input
           type="number"
           id="max-nights"
-          defaultValue={maxBookingLength}
           disabled={isUpdating}
-          onBlur={(e) => handleUpdate(e, "maxBookingLength")}
+          {...register("maxBookingLength", {
+            required: "This field is required",
+            min: { value: 1, message: "Value should be at least 1" },
+          })}
         />
       </FormRow>
 
@@ -52,9 +79,11 @@ function UpdateSettingsForm() {
         <Input
           type="number"
           id="max-guests"
-          defaultValue={maxGuestsPerBooking}
           disabled={isUpdating}
-          onBlur={(e) => handleUpdate(e, "maxGuestsPerBooking")}
+          {...register("maxGuestsPerBooking", {
+            required: "This field is required",
+            min: { value: 1, message: "Value should be at least 1" },
+          })}
         />
       </FormRow>
 
@@ -62,10 +91,16 @@ function UpdateSettingsForm() {
         <Input
           type="number"
           id="breakfast-price"
-          defaultValue={breakfastPrice}
           disabled={isUpdating}
-          onBlur={(e) => handleUpdate(e, "breakfastPrice")}
+          {...register("breakfastPrice", {
+            required: "This field is required",
+            min: { value: 0, message: "Value should be at least 0" },
+          })}
         />
+      </FormRow>
+
+      <FormRow>
+        <Button disabled={isUpdating}>Update settings</Button>
       </FormRow>
     </Form>
   );

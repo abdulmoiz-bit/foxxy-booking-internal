@@ -8,14 +8,17 @@ import { useSignup } from "../hooks/useSignup";
 
 function SignupForm() {
   const { signup, isLoading } = useSignup();
-  const { register, formState, getValues, handleSubmit, reset } = useForm();
+  const { register, formState, getValues, handleSubmit, reset } = useForm({
+    mode: "onChange",
+  });
   const { errors } = formState;
 
   function onSubmit({ fullName, email, password }) {
     signup(
-      { fullName, email, password },
+      { fullName, email: email.trim(), password },
       {
-        onSettled: () => reset(),
+        onSuccess: () =>
+          reset({ fullName: "", email: "", password: "", passwordConfirm: "" }),
       }
     );
   }

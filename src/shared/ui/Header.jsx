@@ -1,10 +1,4 @@
 import styled from "styled-components";
-//import HeaderMenu from "./HeaderMenu";
-//import UserAvatar from "../../features/authentication/components/UserAvatar";
-import Logout from "../../features/authentication/components/Logout";
-import ButtonIcon from "./ButtonIcon";
-import { HiOutlineUser } from "react-icons/hi2";
-import { useNavigate } from "react-router-dom";
 import DarkModeToggle from "./DarkModeToggle";
 
 
@@ -25,25 +19,13 @@ const StyledHeaderMenu = styled.ul`
 
 
 function Header() {
-   const navigate = useNavigate();
   return (
     <StyledHeader>
-      {/*
-      <UserAvatar />
-      */}
       <StyledHeaderMenu>
-      <li>
-        <ButtonIcon onClick={() => navigate("/account")}>
-          <HiOutlineUser />
-        </ButtonIcon>
-      </li>
-      <li>
-        <DarkModeToggle />
-      </li>
-      <li>
-        <Logout />
-      </li>
-    </StyledHeaderMenu>
+        <li>
+          <DarkModeToggle />
+        </li>
+      </StyledHeaderMenu>
     </StyledHeader>
   );
 }

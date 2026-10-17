@@ -13,8 +13,8 @@ import {
 
 
 const StyledSidebar = styled.aside`
-  background-color: var(--color-red-100);
-  padding: 3.2rem 2.4rem;
+  background-color: var(--color-grey-0);
+  padding: 9.9rem 2.4rem 3.2rem;
   border-right: 1px solid var(--color-grey-100);
 
   grid-row: 1 / -1;

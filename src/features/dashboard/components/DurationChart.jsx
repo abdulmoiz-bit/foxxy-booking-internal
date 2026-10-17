@@ -32,42 +32,42 @@ const startDataLight = [
   {
     duration: "1 night",
     value: 0,
-    color: "#ef4444",
+    color: "#a85f50",
   },
   {
     duration: "2 nights",
     value: 0,
-    color: "#f97316",
+    color: "#b77d4e",
   },
   {
     duration: "3 nights",
     value: 0,
-    color: "#eab308",
+    color: "#b49a4e",
   },
   {
     duration: "4-5 nights",
     value: 0,
-    color: "#84cc16",
+    color: "#87975e",
   },
   {
     duration: "6-7 nights",
     value: 0,
-    color: "#22c55e",
+    color: "#66855c",
   },
   {
     duration: "8-14 nights",
     value: 0,
-    color: "#14b8a6",
+    color: "#4f8278",
   },
   {
     duration: "15-21 nights",
     value: 0,
-    color: "#3b82f6",
+    color: "#5d8190",
   },
   {
     duration: "21+ nights",
     value: 0,
-    color: "#a855f7",
+    color: "#827397",
   },
 ];
 
@@ -75,42 +75,42 @@ const startDataDark = [
   {
     duration: "1 night",
     value: 0,
-    color: "#b91c1c",
+    color: "#d88e7e",
   },
   {
     duration: "2 nights",
     value: 0,
-    color: "#c2410c",
+    color: "#dba778",
   },
   {
     duration: "3 nights",
     value: 0,
-    color: "#a16207",
+    color: "#d2bd78",
   },
   {
     duration: "4-5 nights",
     value: 0,
-    color: "#4d7c0f",
+    color: "#aabd7b",
   },
   {
     duration: "6-7 nights",
     value: 0,
-    color: "#15803d",
+    color: "#91b58a",
   },
   {
     duration: "8-14 nights",
     value: 0,
-    color: "#0f766e",
+    color: "#83bbb0",
   },
   {
     duration: "15-21 nights",
     value: 0,
-    color: "#1d4ed8",
+    color: "#91b5c5",
   },
   {
     duration: "21+ nights",
     value: 0,
-    color: "#7e22ce",
+    color: "#b5a1c9",
   },
 ];
 
